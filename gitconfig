@@ -28,3 +28,5 @@
 [user]
   name = Ben Stephens
   email = BKStephens@outlook.com
+[credential]
+  helper = osxkeychain
