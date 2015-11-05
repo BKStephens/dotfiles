@@ -113,3 +113,19 @@ _load_settings "$HOME/.zsh/configs"
 
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+# Make Ruby gems use GCC 4.2. We need this for the monorail.
+export CPPFLAGS=-I/opt/X11/include
+export CC="/usr/local/bin/gcc-4.2"
+export CXX="/usr/local/bin/g++-4.2"
+export CPP="/usr/local/bin/cpp-4.2"
+
+# MySQL
+alias mysql=/usr/local/mysql/bin/mysql
+alias mysqladmin=/usr/local/mysql/bin/mysqladmin
+export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
+export PATH=${PATH}:/usr/local/mysql/bin
+
+# TheCity
+export PATH=${PATH}:/Users/benstephens/repos/thecity/script
