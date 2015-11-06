@@ -59,6 +59,11 @@ augroup vimrcEx
   autocmd FileType css,scss,sass setlocal iskeyword+=-
 augroup END
 
+augroup reload_vimrc " {
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
 " Softtabs, 2 spaces
 set tabstop=2
 set shiftwidth=2
@@ -84,7 +89,8 @@ endif
 set textwidth=80
 set colorcolumn=+1
 
-" Numbers
+" Hybrid line numbers
+set relativenumber
 set number
 set numberwidth=5
 
@@ -154,6 +160,32 @@ set complete+=kspell
 
 " Always use vertical diffs
 set diffopt+=vertical
+
+" Keep 5 lines below and above the cursor
+set scrolloff=5
+ 
+
+" Railscasts Theme
+set background=dark
+colorscheme base16-railscasts
+
+highlight clear SignColumn
+highlight VertSplit    ctermbg=236
+highlight ColorColumn  ctermbg=237
+highlight LineNr       ctermbg=236 ctermfg=240
+highlight CursorLineNr ctermbg=236 ctermfg=240
+highlight CursorLine   ctermbg=236
+highlight StatusLineNC ctermbg=238 ctermfg=0
+highlight StatusLine   ctermbg=240 ctermfg=12
+highlight IncSearch    ctermbg=3   ctermfg=1
+highlight Search       ctermbg=1   ctermfg=3
+highlight Visual       ctermbg=3   ctermfg=0
+highlight Pmenu        ctermbg=240 ctermfg=12
+highlight PmenuSel     ctermbg=3   ctermfg=1
+highlight SpellBad     ctermbg=0   ctermfg=1
+
+" enable tabline 
+let g:airline#extensions#tabline#enabled = 1
 
 " Local config
 if filereadable($HOME . "/.vimrc.local")
