@@ -17,7 +17,7 @@
   excludesfile = ~/.gitignore
   autocrlf = input
 [merge]
-  ff = only
+  tool = diffmerge
 [commit]
   template = ~/.gitmessage
 [fetch]
@@ -31,3 +31,14 @@
   email = BKStephens@outlook.com
 [credential]
   helper = osxkeychain
+[diff]
+  tool = diffmerge
+[mergetool "diffmerge"]
+  trustExitCode = true
+  cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[difftool "diffmerge"]
+  cmd = /usr/local/bin/diffmerge \"$LOCAL\" \"$REMOTE\"
+[filter "lfs"]
+  smudge = git-lfs smudge %f
+  required = true
+  clean = git-lfs clean %f
