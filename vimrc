@@ -191,3 +191,16 @@ let g:airline#extensions#tabline#enabled = 1
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
+
+" Go home command window, your drunk
+map q: :q
+
+nnoremap <Leader>w :w<CR>
+
+" Copy and paste helpers
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
