@@ -127,6 +127,9 @@ alias mysqladmin=/usr/local/mysql/bin/mysqladmin
 export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
 export PATH=${PATH}:/usr/local/mysql/bin
 
+# Postgres
+export PATH=${PATH}:/usr/local/Cellar/postgresql/9.4.5_2/bin/
+
 # TheCity
 export PATH=${PATH}:/Users/benstephens/repos/thecity/script
 
