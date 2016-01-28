@@ -141,3 +141,8 @@ bindkey '^[[1;9D' backward-word
 # http://superuser.com/a/838630 - increase Yosemite maxfile limit
 ulimit -n 65536
 ulimit -u 2048
+
+export NVM_DIR="/Users/benstephens/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+eval "$(docker-machine env default 2>/dev/null)"
