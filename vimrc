@@ -91,6 +91,7 @@ set colorcolumn=81
 " Hybrid line numbers
 set relativenumber
 set number
+
 set numberwidth=5
 
 " Tab completion
@@ -108,8 +109,7 @@ endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
 
-" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
+let g:Tlist_Ctags_Cmd="ctags"
 
 " Index ctags from any project, including those outside Rails
 map <Leader>ct :!ctags -R .<CR>
@@ -122,14 +122,6 @@ nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
-
-" vim-rspec mappings
-nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>s :call RunNearestSpec()<CR>
-nnoremap <Leader>l :call RunLastSpec()<CR>
-
-" Run commands that require an interactive shell
-nnoremap <Leader>r :RunInInteractiveShell<space>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -163,7 +155,6 @@ set diffopt+=vertical
 " Keep 5 lines below and above the cursor
 set scrolloff=5
  
-
 " Railscasts Theme
 set background=dark
 colorscheme base16-railscasts
@@ -183,15 +174,10 @@ highlight Pmenu        ctermbg=240 ctermfg=12
 highlight PmenuSel     ctermbg=3   ctermfg=1
 highlight SpellBad     ctermbg=0   ctermfg=1
 
-" enable tabline 
 let g:airline#extensions#tabline#enabled = 1
 
-" Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
-endif
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
-" Go home command window, your drunk
 map q: :q
 
 nnoremap <Leader>w :w<CR>
