@@ -112,7 +112,7 @@ inoremap <S-Tab> <c-n>
 let g:Tlist_Ctags_Cmd="ctags"
 
 " Index ctags from any project, including those outside Rails
-map <Leader>ct :!ctags -R .<CR>
+map <Leader>ct :!git ctags<CR>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
