@@ -117,6 +117,9 @@ map <Leader>ct :!git ctags<CR>
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
+" Surround pp with 90 #s so it is easier to spot in logs
+nnoremap <leader>pp oputs "#" * 90<c-m>pp<c-m>puts "#" * 90<esc>k<S-a> 
+
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
