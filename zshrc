@@ -5,11 +5,6 @@ export EDITOR=$VISUAL
 # ensure dotfiles bin directory is loaded first
 export PATH="$HOME/.bin:/usr/local/sbin:$PATH"
 
-# load rbenv if available
-if command -v rbenv >/dev/null; then
-  eval "$(rbenv init - --no-rehash)"
-fi
-
 # mkdir .git/safe in the root of repositories you trust
 export PATH=".git/safe/../../bin:$PATH"
 
@@ -77,49 +72,56 @@ bindkey -s "^T" "^[Isudo ^[A" # "t" for "toughguy"
 
 # extra files in ~/.zsh/configs/pre , ~/.zsh/configs , and ~/.zsh/configs/post
 # these are loaded first, second, and third, respectively.
-_load_settings() {
-  _dir="$1"
-  if [ -d "$_dir" ]; then
-    if [ -d "$_dir/pre" ]; then
-      for config in "$_dir"/pre/**/*(N-.); do
-        . $config
-      done
-    fi
-
-    for config in "$_dir"/**/*(N-.); do
-      case "$config" in
-        "$_dir"/pre/*)
-          :
-          ;;
-        "$_dir"/post/*)
-          :
-          ;;
-        *)
-          if [ -f $config ]; then
-            . $config
-          fi
-          ;;
-      esac
-    done
-
-    if [ -d "$_dir/post" ]; then
-      for config in "$_dir"/post/**/*(N-.); do
-        . $config
-      done
-    fi
-  fi
-}
-_load_settings "$HOME/.zsh/configs"
+#_load_settings() {
+#  _dir="$1"
+#  if [ -d "$_dir" ]; then
+#    if [ -d "$_dir/pre" ]; then
+#      for config in "$_dir"/pre/**/*(N-.); do
+#        . $config
+#      done
+#    fi
+#
+#    for config in "$_dir"/**/*(N-.); do
+#      case "$config" in
+#        "$_dir"/pre/*)
+#          :
+#          ;;
+#        "$_dir"/post/*)
+#          :
+#          ;;
+#        *)
+#          if [ -f $config ]; then
+#            . $config
+#          fi
+#          ;;
+#      esac
+#    done
+#
+#    if [ -d "$_dir/post" ]; then
+#      for config in "$_dir"/post/**/*(N-.); do
+#        . $config
+#      done
+#    fi
+#  fi
+#}
+#_load_settings "$HOME/.zsh/configs"
 
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - --no-rehash)"
+
+export PATH="$PATH:/usr/local/go/bin"
+export GOPATH="$HOME/go_code"
 
 # Make Ruby gems use GCC 4.2. We need this for the monorail.
-export CPPFLAGS=-I/opt/X11/include
-export CC="/usr/local/bin/gcc-4.2"
-export CXX="/usr/local/bin/g++-4.2"
-export CPP="/usr/local/bin/cpp-4.2"
+# export CPPFLAGS=-I/opt/X11/include
+# export CC="/usr/local/bin/gcc-4.2"
+# export CXX="/usr/local/bin/g++-4.2"
+# export CPP="/usr/local/bin/cpp-4.2"
+# export CC=$(which CC)
+# export CXX=$(which g++)
+# export CPP=$(which CPP)
 
 # MySQL
 alias mysql=/usr/local/mysql/bin/mysql
@@ -133,6 +135,9 @@ export PATH=${PATH}:/usr/local/Cellar/postgresql/9.4.5_2/bin
 # TheCity
 export PATH=${PATH}:/Users/benstephens/repos/thecity/script
 
+# Engagement
+export PATH=${PATH}:/Users/benstephens/repos/engagement-compose/bin
+
 # Make option-left and option-right jump word
 bindkey -e
 bindkey '^[[1;9C' forward-word
@@ -145,4 +150,5 @@ ulimit -u 2048
 export NVM_DIR="/Users/benstephens/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-eval "$(docker-machine env default 2>/dev/null)"
+eval $(docker-machine env docker-machine)
+export DOCKER_MACHINE_IP=$(docker-machine ip docker-machine)
