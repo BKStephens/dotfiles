@@ -144,11 +144,23 @@ bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 
 # http://superuser.com/a/838630 - increase Yosemite maxfile limit
-ulimit -n 65536
-ulimit -u 2048
+# ulimit -n 65536
+# ulimit -u 2048
 
-export NVM_DIR="/Users/benstephens/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# export NVM_DIR="/Users/benstephens/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-eval $(docker-machine env docker-machine)
-export DOCKER_MACHINE_IP=$(docker-machine ip docker-machine)
+# eval $(docker-machine env docker-machine)
+# export DOCKER_MACHINE_IP=$(docker-machine ip docker-machine)
+source /usr/share/nvm/init-nvm.sh
+
+export NOTES_DIR=~/Dropbox/Notes
+note() {
+  $EDITOR $NOTES_DIR/$(date +%Y%m%d)_"$*".txt
+}
+note_ls() {
+  ls -c $NOTES_DIR | grep "$*"
+}
+note_cd() {
+  cd $NOTES_DIR
+}

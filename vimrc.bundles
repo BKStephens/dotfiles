@@ -35,6 +35,7 @@ Plug 'vim-scripts/tComment'
 Plug 'bling/vim-airline'
 Plug 'elixir-lang/vim-elixir'
 Plug 'rking/ag.vim'
+Plug 'slashmili/alchemist.vim'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

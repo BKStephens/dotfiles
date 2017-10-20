@@ -85,6 +85,12 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
+set wildignore+=*/tmp/*,*/.git/*,*/deps/*,*.beam
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|deps)$',
+  \ 'file': '\v\.(beam)$'
+  \ }
+
 " Make it obvious where 80 characters is
 set colorcolumn=81
 
@@ -118,7 +124,7 @@ map <Leader>ct :!git ctags<CR>
 nnoremap <leader><leader> <c-^>
 
 " Surround pp with 90 #s so it is easier to spot in logs
-nnoremap <leader>pp oputs "#" * 90<c-m>pp<c-m>puts "#" * 90<esc>k<S-a> 
+" nnoremap <leader>pp oputs "#" * 90<c-m>pp<c-m>puts "#" * 90<esc>k<S-a> 
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
@@ -128,6 +134,10 @@ nnoremap <Down> :echoe "Use j"<CR>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
+
+" https://www.reddit.com/r/vim/comments/4d2fos/if_you_use_tags_whats_your_workflow_like/
+set tags+=./.git/tags
+nnoremap <buffer> <C-]> :tjump /<c-r>=expand('<cword>')<CR><CR>
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -160,7 +170,7 @@ set scrolloff=5
  
 " Railscasts Theme
 set background=dark
-colorscheme base16-railscasts
+" colorscheme base16-railscasts
 
 highlight clear SignColumn
 highlight VertSplit    ctermbg=236
@@ -181,7 +191,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
-map q: :q
+" map q: :q
 
 nnoremap <Leader>w :w<CR>
 
@@ -195,3 +205,32 @@ vmap <Leader>P "+P
 
 " Use jk for escape
 imap jk <Esc>
+
+function! DoPrettyXML()
+  " save the filetype so we can restore it later
+  let l:origft = &ft
+  set ft=
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  silent %!xmllint --format -
+  " xmllint will insert an <?xml?> header. it's easy enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which is one extra level
+  " too deep due to the extra tags we wrapped around the document.
+  silent %<
+  " back to home
+  1
+  " restore the filetype
+  exe "set ft=" . l:origft
+endfunction
+command! PrettyXML call DoPrettyXML()
