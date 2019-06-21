@@ -36,6 +36,8 @@ Plug 'bling/vim-airline'
 Plug 'elixir-lang/vim-elixir'
 Plug 'rking/ag.vim'
 Plug 'slashmili/alchemist.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'tpope/vim-sleuth'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

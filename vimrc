@@ -1,6 +1,7 @@
 " Leader
 let mapleader = " "
 
+set clipboard=unnamed
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
 set nowritebackup
@@ -204,7 +205,7 @@ vmap <Leader>p "+p
 vmap <Leader>P "+P
 
 " Use jk for escape
-imap jk <Esc>
+" imap jk <Esc>
 
 function! DoPrettyXML()
   " save the filetype so we can restore it later
@@ -234,3 +235,5 @@ function! DoPrettyXML()
   exe "set ft=" . l:origft
 endfunction
 command! PrettyXML call DoPrettyXML()
+
+nnoremap <leader>ns iCo-Authored-By: Nick Stetich <nick.stetich@servicenow.com>
