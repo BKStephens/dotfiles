@@ -30,6 +30,38 @@ for function in ~/.zsh/functions/*; do
   source $function
 done
 
+
+# extra files in ~/.zsh/configs/pre , ~/.zsh/configs , and ~/.zsh/configs/post
+# these are loaded first, second, and third, respectively.
+_load_settings() {
+  _dir="$1"
+  if [ -d "$_dir" ]; then
+    if [ -d "$_dir/pre" ]; then
+      for config in "$_dir"/pre/**/*~*.zwc(N-.); do
+        . $config
+      done
+    fi
+
+    for config in "$_dir"/**/*(N-.); do
+      case "$config" in
+        "$_dir"/(pre|post)/*|*.zwc)
+          :
+          ;;
+        *)
+          . $config
+          ;;
+      esac
+    done
+
+    if [ -d "$_dir/post" ]; then
+      for config in "$_dir"/post/**/*~*.zwc(N-.); do
+        . $config
+      done
+    fi
+  fi
+}
+_load_settings "$HOME/.zsh/configs"
+
 # makes color constants available
 autoload -U colors
 colors
@@ -70,89 +102,9 @@ bindkey -s "^T" "^[Isudo ^[A" # "t" for "toughguy"
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 
-# extra files in ~/.zsh/configs/pre , ~/.zsh/configs , and ~/.zsh/configs/post
-# these are loaded first, second, and third, respectively.
-#_load_settings() {
-#  _dir="$1"
-#  if [ -d "$_dir" ]; then
-#    if [ -d "$_dir/pre" ]; then
-#      for config in "$_dir"/pre/**/*(N-.); do
-#        . $config
-#      done
-#    fi
-#
-#    for config in "$_dir"/**/*(N-.); do
-#      case "$config" in
-#        "$_dir"/pre/*)
-#          :
-#          ;;
-#        "$_dir"/post/*)
-#          :
-#          ;;
-#        *)
-#          if [ -f $config ]; then
-#            . $config
-#          fi
-#          ;;
-#      esac
-#    done
-#
-#    if [ -d "$_dir/post" ]; then
-#      for config in "$_dir"/post/**/*(N-.); do
-#        . $config
-#      done
-#    fi
-#  fi
-#}
-#_load_settings "$HOME/.zsh/configs"
 
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - --no-rehash)"
-
-export PATH="$PATH:/usr/local/go/bin"
-export GOPATH="$HOME/go_code"
-
-# Make Ruby gems use GCC 4.2. We need this for the monorail.
-# export CPPFLAGS=-I/opt/X11/include
-# export CC="/usr/local/bin/gcc-4.2"
-# export CXX="/usr/local/bin/g++-4.2"
-# export CPP="/usr/local/bin/cpp-4.2"
-# export CC=$(which CC)
-# export CXX=$(which g++)
-# export CPP=$(which CPP)
-
-# MySQL
-alias mysql=/usr/local/mysql/bin/mysql
-alias mysqladmin=/usr/local/mysql/bin/mysqladmin
-export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
-export PATH=${PATH}:/usr/local/mysql/bin
-
-# Postgres
-export PATH=${PATH}:/usr/local/Cellar/postgresql/9.4.5_2/bin
-
-# TheCity
-export PATH=${PATH}:/Users/benstephens/repos/thecity/script
-
-# Engagement
-export PATH=${PATH}:/Users/benstephens/repos/engagement-compose/bin
-
-# Make option-left and option-right jump word
-bindkey -e
-bindkey '^[[1;9C' forward-word
-bindkey '^[[1;9D' backward-word
-
-# http://superuser.com/a/838630 - increase Yosemite maxfile limit
-# ulimit -n 65536
-# ulimit -u 2048
-
-# export NVM_DIR="/Users/benstephens/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# eval $(docker-machine env docker-machine)
-# export DOCKER_MACHINE_IP=$(docker-machine ip docker-machine)
-source /usr/share/nvm/init-nvm.sh
 
 export NOTES_DIR=~/Dropbox/Notes
 note() {
@@ -165,9 +117,6 @@ note_cd() {
   cd $NOTES_DIR
 }
 
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-
 # fzf + ag configuration
 export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -176,3 +125,8 @@ export FZF_DEFAULT_OPTS='
 --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
 --color info:108,prompt:109,spinner:108,pointer:168,marker:168
 '
+
+# aliases
+[[ -f ~/.aliases ]] && source ~/.aliases
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
