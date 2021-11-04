@@ -126,6 +126,12 @@ export FZF_DEFAULT_OPTS='
 --color info:108,prompt:109,spinner:108,pointer:168,marker:168
 '
 
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
 
