@@ -1,0 +1,167 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "ctrl+s c",
+    "command": "workbench.action.terminal.newInActiveWorkspace",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 1",
+    "command": "workbench.action.terminal.focusAtIndex1",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 2",
+    "command": "workbench.action.terminal.focusAtIndex2",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 3",
+    "command": "workbench.action.terminal.focusAtIndex3",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 4",
+    "command": "workbench.action.terminal.focusAtIndex4",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 5",
+    "command": "workbench.action.terminal.focusAtIndex5",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 6",
+    "command": "workbench.action.terminal.focusAtIndex6",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 7",
+    "command": "workbench.action.terminal.focusAtIndex7",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 8",
+    "command": "workbench.action.terminal.focusAtIndex8",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 9",
+    "command": "workbench.action.terminal.focusAtIndex9",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s 1",
+    "command": "workbench.action.openEditorAtIndex1",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s 2",
+    "command": "workbench.action.openEditorAtIndex2",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s 3",
+    "command": "workbench.action.openEditorAtIndex3",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s 4",
+    "command": "workbench.action.openEditorAtIndex4",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s 5",
+    "command": "workbench.action.openEditorAtIndex5",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s 6",
+    "command": "workbench.action.openEditorAtIndex6",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s 7",
+    "command": "workbench.action.openEditorAtIndex7",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s 8",
+    "command": "workbench.action.openEditorAtIndex8",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s 9",
+    "command": "workbench.action.openEditorAtIndex9",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s shift+5",
+    "command": "workbench.action.terminal.split",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s shift+5",
+    "command": "workbench.action.splitEditorRight",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s shift+'",
+    "command": "workbench.action.splitEditorDown",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s ctrl+s",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+s z",
+    "command": "workbench.action.toggleMaximizedPanel",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s z",
+    "command": "workbench.action.maximizeEditor",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s l",
+    "command": "workbench.action.terminal.focusNextPane",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s l",
+    "command": "workbench.action.navigateRight",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s h",
+    "command": "workbench.action.terminal.focusPreviousPane",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s h",
+    "command": "workbench.action.navigateLeft",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s j",
+    "command": "workbench.action.navigateDown",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s k",
+    "command": "workbench.action.focusPreviousPart",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+s k",
+    "command": "workbench.action.navigateUp",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+s x",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalFocus"
+  }
+]
