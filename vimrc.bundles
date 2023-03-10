@@ -27,9 +27,8 @@ endif
 
 Plug 'junegunn/fzf.vim'
 Plug 'elixir-lang/vim-elixir'
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 Plug 'janko-m/vim-test'
-Plug 'pangloss/vim-javascript'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-bundler'
@@ -40,20 +39,36 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
+Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
-Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-sleuth'
 Plug 'vim-scripts/tComment'
 Plug 'bling/vim-airline'
-Plug 'elixir-lang/vim-elixir'
 Plug 'rking/ag.vim'
 Plug 'slashmili/alchemist.vim'
+Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
-Plug 'tpope/vim-sleuth'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'github/copilot.vim'
+
 
 if g:has_async
-  Plug 'dense-analysis/ale'
+  " Plug 'dense-analysis/ale'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+  let g:coc_global_extensions = [
+    \ 'coc-tsserver'
+    \ ]
+  if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+    let g:coc_global_extensions += ['coc-prettier']
+  endif
+
+  if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+    let g:coc_global_extensions += ['coc-eslint']
+  endif
 endif
+
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

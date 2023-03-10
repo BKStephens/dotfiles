@@ -2,12 +2,14 @@
 export VISUAL=vim
 export EDITOR=$VISUAL
 
+#export PATH="$HOME/nvim-osx64/bin:$PATH"
 # ensure dotfiles bin directory is loaded first
 export PATH="$HOME/.bin:/usr/local/sbin:$PATH"
 
 # mkdir .git/safe in the root of repositories you trust
 export PATH=".git/safe/../../bin:$PATH"
 
+export PATH="$HOME/.asdf/installs/rust/stable/bin:$PATH"
 # modify the prompt to contain git branch name if applicable
 git_prompt_info() {
   current_branch=$(git current-branch 2> /dev/null)
@@ -136,3 +138,13 @@ bindkey "^X^E" edit-command-line
 [[ -f ~/.aliases ]] && source ~/.aliases
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/bstephens-mac/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bstephens-mac/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/bstephens-mac/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bstephens-mac/google-cloud-sdk/completion.zsh.inc'; fi
+
+alias vim="nvim"
+
+export NODE_OPTIONS="${NODE_OPTIONS:=--max-old-space-size=8192}"

@@ -18,7 +18,7 @@
   excludesfile = ~/.gitignore
   autocrlf = input
 [merge]
-  tool = diffmerge
+	tool = diffmerge
 [commit]
   template = ~/.gitmessage
 [fetch]
@@ -33,13 +33,16 @@
 [credential]
   helper = osxkeychain
 [diff]
-  tool = diffmerge
+	tool = diffmerge
 [mergetool "diffmerge"]
-  trustExitCode = true
-  cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+	trustExitCode = true
+	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
 [difftool "diffmerge"]
-  cmd = /usr/local/bin/diffmerge \"$LOCAL\" \"$REMOTE\"
+	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
 [filter "lfs"]
-  smudge = git-lfs smudge %f
+	smudge = git-lfs smudge -- %f
   required = true
-  clean = git-lfs clean %f
+	clean = git-lfs clean -- %f
+	process = git-lfs filter-process
+[mergetool]
+	keepBackup = false
