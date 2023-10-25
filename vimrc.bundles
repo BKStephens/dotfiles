@@ -26,17 +26,17 @@ else
 endif
 
 Plug 'junegunn/fzf.vim'
-Plug 'elixir-lang/vim-elixir'
+"Plug 'elixir-lang/vim-elixir'
 " Plug 'fatih/vim-go'
 Plug 'janko-m/vim-test'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'slim-template/vim-slim'
-Plug 'tpope/vim-bundler'
+"Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-rails'
+"Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
 Plug 'vim-ruby/vim-ruby'
@@ -48,17 +48,20 @@ Plug 'bling/vim-airline'
 Plug 'rking/ag.vim'
 Plug 'slashmili/alchemist.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
+" https://github.com/leafgarland/typescript-vim/issues/204
+Plug 'leafgarland/typescript-vim', {'commit': '31ede5ad905ce4159a5e285073a391daa3bf83fa'} 
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'github/copilot.vim'
-
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'puremourning/vimspector'
 
 if g:has_async
-  " Plug 'dense-analysis/ale'
+  Plug 'dense-analysis/ale'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   let g:coc_global_extensions = [
-    \ 'coc-tsserver'
+    \ 'coc-tsserver',
+    \ 'coc-omnisharp'
     \ ]
   if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
     let g:coc_global_extensions += ['coc-prettier']
@@ -67,6 +70,9 @@ if g:has_async
   if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
     let g:coc_global_extensions += ['coc-eslint']
   endif
+  let g:ale_linters = {
+  \ 'cs': ['OmniSharp']
+  \}
 endif
 
 
@@ -75,4 +81,3 @@ if filereadable(expand("~/.vimrc.bundles.local"))
 endif
 
 call plug#end()
-

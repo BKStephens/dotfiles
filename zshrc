@@ -2,7 +2,7 @@
 export VISUAL=vim
 export EDITOR=$VISUAL
 
-#export PATH="$HOME/nvim-osx64/bin:$PATH"
+PATH="/opt/homebrew/bin:$PATH"
 # ensure dotfiles bin directory is loaded first
 export PATH="$HOME/.bin:/usr/local/sbin:$PATH"
 
@@ -31,7 +31,6 @@ compinit
 for function in ~/.zsh/functions/*; do
   source $function
 done
-
 
 # extra files in ~/.zsh/configs/pre , ~/.zsh/configs , and ~/.zsh/configs/post
 # these are loaded first, second, and third, respectively.
@@ -148,3 +147,6 @@ if [ -f '/Users/bstephens-mac/google-cloud-sdk/completion.zsh.inc' ]; then . '/U
 alias vim="nvim"
 
 export NODE_OPTIONS="${NODE_OPTIONS:=--max-old-space-size=8192}"
+
+# Add .NET Core SDK tools
+export PATH="$PATH:$HOME/.dotnet/tools"
