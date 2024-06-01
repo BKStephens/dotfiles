@@ -131,7 +131,7 @@ set wildignore+=*/tmp/*,*/.git/*,*/deps/*,*.beam
 " set colorcolumn=+1
 
 " Hybrid line numbers
-set relativenumber
+"set relativenumber
 set number
 
 set numberwidth=5
@@ -204,6 +204,7 @@ nnoremap <c-p> :Files<cr>
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
 set spellfile=$HOME/.vim-spell-en.utf-8.add
+" set spell
 
 " Autocomplete with dictionary words when spell check is on
 set complete+=kspell
@@ -217,10 +218,6 @@ endif
 
 " Keep 5 lines below and above the cursor
 set scrolloff=5
- 
-" Railscasts Theme
-set background=dark
-" colorscheme base16-railscasts
 
 highlight clear SignColumn
 highlight VertSplit    ctermbg=236
@@ -312,7 +309,7 @@ augroup omnisharp_commands
   " The following commands are contextual, based on the cursor position.
   autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
   autocmd FileType cs nmap <silent> <buffer> gy <Plug>(omnisharp_go_to_type_definition)
-  autocmd FileType cs nmap <silent> <buffer> gi <Plug>(omnisharp_find_implementations)
+  autocmd FileType cs nmap <silent> <buffer> gI <Plug>(omnisharp_find_implementations)
   autocmd FileType cs nmap <silent> <buffer> gr <Plug>(omnisharp_find_usages)
   autocmd FileType cs nmap <silent> <buffer> K  <Plug>(omnisharp_documentation)
   autocmd FileType cs nmap <silent> <buffer> <leader>f <Plug>(omnisharp_code_format)
@@ -353,3 +350,36 @@ augroup END
 
 " Enable snippet completion, using the ultisnips plugin
 " let g:OmniSharp_want_snippet=1
+let g:vimspector_install_gadgets = ['netcoredbg']
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+"let g:vimspector_configurations = {
+"\  "configurations": {
+"\    "launch - netcoredbg": {
+"\      "adapter": "netcoredbg",
+"\      "filetypes": [ "cs" ],
+"\      "configuration": {
+"\        "request": "launch",
+"\        "program": "${HOME}/repos/Ann/app/backend/DocuSmart.API/bin/Debug/DocuSmart.API.dll",
+"\        "args": [],
+"\        "stopAtEntry": "false",
+"\        "cwd": "${HOME}/repos/Ann/app/backend/DocuSmart.API",
+"\        "env": {},
+"\      },
+"\    },
+"\  },
+"\ }
+
+" Enable syntax highlighting 
+syntax enable
+" Enable 256 colors palette 
+set t_Co=256
+" Important!!
+if has('termguicolors')
+  set termguicolors
+endif
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+set background=dark
+syntax enable
+colorscheme gruvbox
