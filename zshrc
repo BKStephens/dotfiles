@@ -9,7 +9,8 @@ export PATH="$HOME/.bin:/usr/local/sbin:$PATH"
 # mkdir .git/safe in the root of repositories you trust
 export PATH=".git/safe/../../bin:$PATH"
 
-export PATH="$HOME/.asdf/installs/rust/stable/bin:$PATH"
+export PATH="$HOME/.asdf/shims:$PATH"
+
 # modify the prompt to contain git branch name if applicable
 git_prompt_info() {
   current_branch=$(git current-branch 2> /dev/null)
@@ -127,8 +128,6 @@ export FZF_DEFAULT_OPTS='
 --color info:108,prompt:109,spinner:108,pointer:168,marker:168
 '
 
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
@@ -150,3 +149,14 @@ export NODE_OPTIONS="${NODE_OPTIONS:=--max-old-space-size=8192}"
 
 # Add .NET Core SDK tools
 export PATH="$PATH:$HOME/.dotnet/tools"
+
+export DOTNET_ROOT=/usr/local/share/dotnet
+
+export PATH="$PATH:$HOME/repos/msf-dev/minikube"
+
+export DOCKER_TLS_VERIFY="1"
+# export DOCKER_HOST="tcp://127.0.0.1:55949"
+export DOCKER_CERT_PATH="/Users/ben.stephens/.minikube/certs"
+export MINIKUBE_ACTIVE_DOCKERD="docker-desktop"
+
+eval $(minikube -p docker-desktop docker-env)
