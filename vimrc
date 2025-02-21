@@ -234,9 +234,26 @@ highlight Pmenu        ctermbg=240 ctermfg=12
 highlight PmenuSel     ctermbg=3   ctermfg=1
 highlight SpellBad     ctermbg=0   ctermfg=1
 
-let g:airline#extensions#tabline#enabled = 1
+set showtabline=2
+let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'tabline': {
+    \   'left': [ ['buffers'] ],
+    \   'right': [ [] ]
+    \ },
+    \ 'component_expand': {
+    \   'buffers': 'lightline#bufferline#buffers'
+    \ },
+    \ 'component_type': {
+    \   'buffers': 'tabsel'
+    \ },
+    \ }
 
-let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#unnamed      = '[No Name]'
 
 " map q: :q
 
