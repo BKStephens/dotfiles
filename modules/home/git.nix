@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+in
 {
   programs.git = {
     enable = true;
@@ -7,7 +10,9 @@
     settings = {
       user = {
         name = "Ben Stephens";
-        email = "BKStephens@outlook.com";
+        email = if isDarwin
+          then "ben.stephens@docusign.com"
+          else "BKStephens@outlook.com";
       };
 
       alias = {
@@ -31,7 +36,7 @@
       rebase.autosquash = true;
       commit.template = "~/.gitmessage";
       checkout.workers = -1;
-      credential.helper = if pkgs.stdenv.hostPlatform.isDarwin then "osxkeychain" else "libsecret";
+      credential.helper = if isDarwin then "osxkeychain" else "libsecret";
     };
 
     includes = [
