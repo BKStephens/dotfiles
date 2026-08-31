@@ -11,6 +11,10 @@ fi
 
 vim -u "$HOME"/.vimrc.bundles +PlugUpdate +PlugClean! +qa
 
+if command -v nvim >/dev/null 2>&1; then
+  nvim --headless "+Lazy! sync" +qa
+fi
+
 reset -Q
 
 if [ -f "$HOME/.git_template/HEAD" ] && \

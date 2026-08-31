@@ -1,0 +1,119 @@
+================================================================================
+                    NEOVIM LUA & LAZY.NVIM MIGRATION PLAN
+================================================================================
+
+Target: Migrate existing Vim setup (~/.vimrc, ~/.vimrc.bundles, ftplugins) 
+        to a modern Neovim (v0.10+) Lua configuration with zero-downtime fallback.
+
+--------------------------------------------------------------------------------
+1. AGREED ARCHITECTURAL DECISIONS
+--------------------------------------------------------------------------------
+
+- Configuration Architecture: Clean modular `lazy.nvim` setup
+  (1:1 port of existing muscle memory, keybindings, and options into idiomatic Lua).
+- Fuzzy Finder: `ibhagwan/fzf-lua` + `ripgrep` + `fd`
+  (Preserves existing `<C-p>` and `\` grep workflow with native Neovim speed).
+- Day-1 Language Tooling:
+  1. C# / .NET: Mason OmniSharp / Roslyn LSP, CSharpier formatting, netcoredbg DAP.
+  2. TypeScript / JavaScript / React: ts_ls / vtsls, ESLint, Prettier via conform.nvim.
+- Theme: `ellisonleao/gruvbox.nvim` (dark mode matching current palette).
+- Status & UI: `nvim-lualine/lualine.nvim` + `akinsho/bufferline.nvim` + `which-key.nvim`.
+- Fallback Strategy: Side-by-side coexistence (`vim` vs `nvim`) with zero risk to `~/.vimrc`.
+
+--------------------------------------------------------------------------------
+2. ZERO-RISK COEXISTENCE & FALLBACK STRATEGY
+--------------------------------------------------------------------------------
+
+A. Storage Isolation:
+   - Classic Vim strictly reads: `~/.vimrc`, `~/.vimrc.bundles`, and `~/.vim/`
+   - Neovim strictly reads: `~/.config/nvim/init.lua` and `~/.local/share/nvim/`
+   - Existing `.vimrc` files will remain completely untouched.
+
+B. Instant Fallback Modes:
+   - Run `vim <file>`  -> Launches classic Vim with existing `~/.vimrc`.
+   - Run `nvim <file>` -> Launches new Lua Neovim config.
+   - Run `nvim -u ~/.vimrc <file>` -> Boots Neovim with old vimrc if needed.
+
+--------------------------------------------------------------------------------
+3. COMPONENT REPLACEMENT MATRIX
+--------------------------------------------------------------------------------
+
+Existing Tool / Plugin         Modern Lua Replacement         Status
+--------------------------------------------------------------------------------
+vim-plug                       folke/lazy.nvim                Configured
+junegunn/fzf.vim + ag.vim      ibhagwan/fzf-lua + ripgrep     Configured (<C-p>, \)
+neoclide/coc.nvim              nvim-lspconfig + mason.nvim    Configured
+dense-analysis/ale             conform.nvim + nvim-lint       Configured
+OmniSharp/omnisharp-vim        OmniSharp / Roslyn via Mason   Configured
+puremourning/vimspector        mfussenegger/nvim-dap          Configured (netcoredbg)
+itchyny/lightline.vim          nvim-lualine/lualine.nvim      Configured
+mengelbrecht/lightline-buf     akinsho/bufferline.nvim        Configured
+tpope/vim-fugitive             tpope/vim-fugitive (kept)      Configured
+-                              lewis6991/gitsigns.nvim        Added (buffer hunks)
+tpope/vim-surround             kylechui/nvim-surround         Configured
+vim-scripts/tComment           Neovim 0.10+ native / Comment  Configured
+typescript-vim / vim-ruby      nvim-treesitter                Configured
+the_silver_searcher (ag)       BurntSushi/ripgrep (rg)        Configured
+
+--------------------------------------------------------------------------------
+4. TARGET DIRECTORY STRUCTURE (~/.config/nvim or dotfiles/config/nvim)
+--------------------------------------------------------------------------------
+
+config/nvim/
+├── init.lua                   # Sets mapleader = " ", loads config/lazy
+├── lua/
+│   ├── config/
+│   │   ├── options.lua        # Tabs (2 spaces), clipboard, numbers, splits
+│   │   ├── keymaps.lua        # <Leader><Leader>, C-h/j/k/l, <Leader>y/p, <Leader>w
+│   │   ├── autocmds.lua       # Restore cursor, filetypes, spell for md/gitcommit
+│   │   └── lazy.lua           # lazy.nvim bootstrap
+│   └── plugins/
+│       ├── colorscheme.lua    # gruvbox.nvim
+│       ├── fzf.lua            # fzf-lua (<C-p> files, \ live grep, <Leader><Space> buffers)
+│       ├── treesitter.lua     # nvim-treesitter (c_sharp, ts, tsx, js, json, lua, etc.)
+│       ├── lsp.lua            # mason, mason-lspconfig, nvim-lspconfig (ts_ls, omnisharp)
+│       ├── completion.lua     # nvim-cmp / blink.cmp + luasnip
+│       ├── formatting.lua     # conform.nvim (prettier, csharpier)
+│       ├── ui.lua             # lualine, bufferline, which-key, gitsigns
+│       ├── git.lua            # vim-fugitive, vim-rhubarb
+│       ├── coding.lua         # nvim-surround, vim-repeat
+│       ├── csharp.lua         # C# Omnisharp LSP keymaps, netcoredbg DAP
+│       └── test.lua           # vim-test / neotest bindings
+└── ftplugin/
+    ├── markdown.lua           # spell check
+    ├── gitcommit.lua          # spell check
+    └── cs.lua                 # C# buffer-local mappings
+
+--------------------------------------------------------------------------------
+5. STEP-BY-STEP IMPLEMENTATION ROADMAP
+--------------------------------------------------------------------------------
+
+STEP 1: Directory & Bootstrap Setup
+  - Create `config/nvim` in dotfiles repo (and link to `~/.config/nvim`).
+  - Write `init.lua`, `lua/config/lazy.lua`, `lua/config/options.lua`, 
+    `lua/config/keymaps.lua`, `lua/config/autocmds.lua`.
+
+STEP 2: Theme & Fuzzy Finding
+  - Configure `gruvbox.nvim` with matching colors.
+  - Setup `fzf-lua` with `<C-p>` (files) and `\` (ripgrep project search).
+
+STEP 3: Treesitter & UI
+  - Setup `nvim-treesitter` for AST-based highlighting.
+  - Setup `lualine.nvim` statusline and `bufferline.nvim` buffer tabs.
+  - Setup `gitsigns.nvim` for gutter diffs and hunk actions.
+
+STEP 4: LSP, Completion & Formatting (TS + C#)
+  - Configure `mason.nvim` and `nvim-lspconfig` for `ts_ls` and `omnisharp`.
+  - Configure `conform.nvim` for Prettier and CSharpier on save.
+  - Configure `nvim-cmp` or `blink.cmp` for autocomplete.
+
+STEP 5: C# Development & DAP
+  - Wire C# specific LSP commands (`gd`, `gr`, `K`, `<Leader>ca`, `<Leader>rn`).
+  - Wire `nvim-dap` for .NET debugging with `netcoredbg`.
+
+STEP 6: Validation & Verification
+  - Launch `nvim`, verify zero startup errors and fast boot (<50ms).
+  - Verify C# and TypeScript projects with autocomplete, definitions, and formatting.
+  - Test instant fallback using `vim` and `nvim -u ~/.vimrc`.
+
+================================================================================
