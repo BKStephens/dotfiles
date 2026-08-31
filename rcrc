@@ -1,4 +1,0 @@
-EXCLUDES="README*.md LICENSE *.txt"
-DOTFILES_DIRS="$HOME/repos/dotfiles-local $HOME/repos/dotfiles"
-SYMLINK_DIRS="config/nvim"
-COPY_ALWAYS="git_template/HEAD"
