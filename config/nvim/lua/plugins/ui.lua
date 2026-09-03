@@ -91,6 +91,7 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
+      preset = "modern",
       spec = {
         { "<Leader>f", group = "find/file/format" },
         { "<Leader>h", group = "git hunks" },
