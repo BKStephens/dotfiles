@@ -56,6 +56,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       options = {
+        always_show_bufferline = true,
         numbers = "buffer_id",
         diagnostics = "nvim_lsp",
         separator_style = "thin",
