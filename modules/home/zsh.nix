@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  # Starship prompt
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   # Fuzzy finder with Zsh integration (Ctrl+R history, Ctrl+T file find)
   programs.fzf = {
     enable = true;
@@ -62,20 +68,6 @@
 
       # Enable colors
       autoload -U colors && colors
-
-      # Prompt
-      git_prompt_info() {
-        local current_branch=$(git current-branch 2> /dev/null)
-        if [[ -n $current_branch ]]; then
-          echo " %B%F{green}''${current_branch}%f%b"
-        fi
-      }
-      setopt promptsubst
-      if [[ -n "$SSH_CONNECTION" ]]; then
-        export PS1="%B%F{green}%n@%m:%f%b%B%F{blue}%c%f%b\$(git_prompt_info) %# "
-      else
-        export PS1="%B%F{blue}%c%f%b\$(git_prompt_info) %# "
-      fi
 
       # Load custom functions & configs from ~/.zsh
       if [ -d "$HOME/.zsh/functions" ]; then

@@ -2,8 +2,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Load core configuration modules
+-- Core configuration modules
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
+
+-- Bootstrap lazy.nvim, LazyVim, and user plugins
 require("config.lazy")

@@ -1,3 +1,8 @@
+# If starship is active, defer prompt control to starship
+if (( $+commands[starship] )) && [[ -n "$STARSHIP_SESSION_KEY" || -n "$STARSHIP_SHELL" ]]; then
+  return
+fi
+
 # modify the prompt to contain git branch name if applicable
 git_prompt_info() {
   current_branch=$(git current-branch 2> /dev/null)

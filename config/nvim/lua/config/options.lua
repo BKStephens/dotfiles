@@ -1,5 +1,8 @@
 local opt = vim.opt
 
+vim.g.autoformat = false
+vim.g.snacks_animate = false
+
 -- Encoding & Clipboard
 opt.encoding = "utf-8"
 opt.clipboard = { "unnamed", "unnamedplus" } -- System clipboard integration (macOS & Linux)

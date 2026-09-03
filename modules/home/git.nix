@@ -26,7 +26,27 @@ in
       };
 
       init.defaultBranch = "main";
-      push.default = "current";
+      pull.rebase = true;
+      push = {
+        default = "current";
+        autoSetupRemote = true;
+      };
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+      };
+      commit = {
+        verbose = true;
+        template = "~/.gitmessage";
+      };
+      column.ui = "auto";
+      branch.sort = "-committerdate";
+      tag.sort = "-version:refname";
+      rerere = {
+        enabled = true;
+        autoupdate = true;
+      };
       color.ui = "auto";
       core = {
         excludesfile = "~/.gitignore";
@@ -34,7 +54,6 @@ in
       };
       fetch.prune = true;
       rebase.autosquash = true;
-      commit.template = "~/.gitmessage";
       checkout.workers = -1;
       credential.helper = if isDarwin then "osxkeychain" else "libsecret";
     };

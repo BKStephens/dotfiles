@@ -1,6 +1,6 @@
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     cmd = "Mason",
     build = ":MasonUpdate",
     opts = {
@@ -14,7 +14,7 @@ return {
     },
   },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
         "ts_ls",
@@ -31,14 +31,23 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
     },
     config = function()
       local lspconfig = require("lspconfig")
       local mason_lspconfig = require("mason-lspconfig")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local has_blink, blink = pcall(require, "blink.cmp")
+      if has_blink then
+        capabilities = blink.get_lsp_capabilities(capabilities)
+      else
+        local has_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+        if has_cmp then
+          capabilities = cmp_lsp.default_capabilities(capabilities)
+        end
+      end
 
       -- Disable semantic tokens globally to prevent OmniSharp crashing and highlight clearing
       if vim.lsp.semantic_tokens and vim.lsp.semantic_tokens.enable then

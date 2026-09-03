@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -16,9 +16,11 @@
     fzf
     htop
     jq
+    lazygit
     nodejs
     ripgrep
     silver-searcher-ng
+    starship
     tree
     zoxide
   ];
@@ -37,6 +39,11 @@
     "/opt/homebrew/bin"
     "/opt/homebrew/sbin"
   ];
+
+  # Cross-platform configuration symlinks
+  xdg.configFile = {
+    "starship.toml".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/config/starship.toml";
+  };
 
   # Link custom executable scripts and files
   home.file."bin".source = ../../bin;

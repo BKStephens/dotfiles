@@ -17,14 +17,19 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
+    -- add LazyVim and import its plugins
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- import/override with your plugins
     { import = "plugins" },
   },
   defaults = {
     lazy = false,
     version = false,
   },
+  install = { colorscheme = { "tokyonight", "habamax", "gruvbox" } },
   checker = {
-    enabled = false,
+    enabled = true,
+    notify = false,
   },
   performance = {
     rtp = {

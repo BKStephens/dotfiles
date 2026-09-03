@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   # Linux user configuration
@@ -8,6 +8,12 @@
 
   # Better integration for non-NixOS Linux distributions
   targets.genericLinux.enable = true;
+
+  # Arch Linux / Hyprland specific configuration overrides
+  # Omarchy manages all system defaults in ~/.config natively; we only link user overrides here
+  xdg.configFile = {
+    "hypr/input.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/config/hypr/input.lua";
+  };
 
   # Nix configuration for standalone Home Manager
   nix = {

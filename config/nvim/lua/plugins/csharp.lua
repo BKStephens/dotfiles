@@ -3,8 +3,7 @@ return {
     "seblj/roslyn.nvim",
     lazy = false,
     dependencies = {
-      "williamboman/mason.nvim",
-      "hrsh7th/cmp-nvim-lsp",
+      "mason-org/mason.nvim",
     },
     opts = {
       filewatching = "auto",
@@ -38,8 +37,19 @@ return {
         end
       end
 
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local has_blink, blink = pcall(require, "blink.cmp")
+      if has_blink then
+        capabilities = blink.get_lsp_capabilities(capabilities)
+      else
+        local has_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+        if has_cmp then
+          capabilities = cmp_lsp.default_capabilities(capabilities)
+        end
+      end
+
       vim.lsp.config("roslyn", {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        capabilities = capabilities,
         settings = {
           ["csharp|inlay_hints"] = {
             csharp_enable_inlay_hints_for_implicit_object_creation = true,
@@ -72,7 +82,7 @@ return {
     dependencies = {
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
     },
     keys = {
       { "<F5>", function() require("dap").continue() end, desc = "Debug: Continue" },
