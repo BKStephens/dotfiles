@@ -30,9 +30,9 @@ return {
         ruby = { "rubocop" },
         go = { "goimports", "gofmt" },
       },
-      format_on_save = {
+      default_format_opts = {
         timeout_ms = 1000,
-        lsp_fallback = true,
+        lsp_format = "fallback",
       },
     },
   },
