@@ -5,6 +5,9 @@ return {
       animate = { enabled = false },
       scroll = { enabled = false },
     },
+    keys = {
+      { "<leader><space>", false },
+    },
   },
   {
     "nvim-tree/nvim-web-devicons",
