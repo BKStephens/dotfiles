@@ -43,6 +43,7 @@
   # Cross-platform configuration symlinks
   xdg.configFile = {
     "starship.toml".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/config/starship.toml";
+    "aerospace/aerospace.toml".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/config/aerospace/aerospace.toml";
   };
 
   # Link custom executable scripts and files

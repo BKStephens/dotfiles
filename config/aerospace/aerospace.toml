@@ -1,0 +1,154 @@
+# AeroSpace Configuration
+
+config-version = 2
+
+# Start AeroSpace at login
+start-at-login = true
+
+# Layout & Normalization
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+accordion-padding = 30
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Mouse & Monitors
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = false
+
+# Workspace configuration
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+# Gaps
+gaps.inner.horizontal = 10
+gaps.inner.vertical = 10
+gaps.outer.left = 12
+gaps.outer.bottom = 12
+gaps.outer.top = 12
+gaps.outer.right = 12
+
+# Window floating rules for macOS utility windows
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.archiveutility'
+run = 'layout floating'
+
+[mode.main.binding]
+
+# --- Focus Navigation (HJKL & Arrow Keys) ---
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+alt-left = 'focus left'
+alt-down = 'focus down'
+alt-up = 'focus up'
+alt-right = 'focus right'
+
+# --- Window Movement / Swap ---
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+alt-shift-left = 'move left'
+alt-shift-down = 'move down'
+alt-shift-up = 'move up'
+alt-shift-right = 'move right'
+
+# --- Workspaces Switch ---
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-0 = 'workspace 10'
+
+# --- Move Window to Workspace ---
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 10'
+
+# --- Workspace Navigation & Multi-Monitor ---
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+alt-ctrl-left = 'focus-monitor --wrap-around prev'
+alt-ctrl-right = 'focus-monitor --wrap-around next'
+alt-ctrl-shift-left = 'move-node-to-monitor --wrap-around prev'
+alt-ctrl-shift-right = 'move-node-to-monitor --wrap-around next'
+
+# --- Window Layout & State Management ---
+alt-f = 'fullscreen'
+alt-z = 'fullscreen'
+alt-t = 'layout floating tiling'
+alt-w = 'close --quit-if-last-window'
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+# --- Quick Application Launchers & Help ---
+alt-shift-slash = 'exec-and-forget /Users/ben.stephens/repos/dotfiles/bin/aerospace-keys'
+alt-enter = 'exec-and-forget open -n -a Ghostty || open -a Terminal'
+alt-b = 'exec-and-forget open -a "Google Chrome" || open -a "Safari"'
+
+# --- Resize & Modes ---
+alt-r = 'mode resize'
+alt-minus = 'resize smart -100'
+alt-equal = 'resize smart +100'
+alt-shift-r = 'reload-config'
+alt-shift-semicolon = 'mode service'
+alt-shift-e = 'mode service'
+
+# ==============================================================================
+# RESIZE MODE
+# ==============================================================================
+[mode.resize.binding]
+h = 'resize smart -100'
+j = 'resize smart -100'
+k = 'resize smart +100'
+l = 'resize smart +100'
+left = 'resize smart -100'
+down = 'resize smart -100'
+up = 'resize smart +100'
+right = 'resize smart +100'
+minus = 'resize smart -100'
+equal = 'resize smart +100'
+enter = 'mode main'
+esc = 'mode main'
+
+# ==============================================================================
+# SERVICE MODE
+# ==============================================================================
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']

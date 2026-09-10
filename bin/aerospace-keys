@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+HELP_TEXT="AEROSPACE SHORTCUTS (Alt = ⌥ Option)
+
+FOCUS & NAVIGATION
+  Alt + H / J / K / L         Focus Left / Down / Up / Right
+  Alt + Arrow Keys            Focus Left / Down / Up / Right
+
+WINDOW MANAGEMENT
+  Alt + Shift + H / J / K / L Move Window Left / Down / Up / Right
+  Alt + Shift + Arrow Keys    Move Window Left / Down / Up / Right
+  Alt + F / Z                 Toggle Fullscreen
+  Alt + T                     Toggle Floating / Tiling
+  Alt + W                     Close Active Window
+  Alt + /                     Toggle Split (Horizontal / Vertical)
+  Alt + ,                     Toggle Accordion Layout
+
+WORKSPACES
+  Alt + 1 .. 9 (0 = 10)       Switch Workspace
+  Alt + Shift + 1 .. 9 (0=10) Move Window to Workspace
+  Alt + Tab                   Toggle Previous Workspace (Back & Forth)
+
+MULTI-MONITOR
+  Alt + Shift + Tab           Move Workspace to Next Monitor
+  Alt + Ctrl + Left / Right   Focus Monitor Left / Right
+  Alt + Ctrl + Shift + Arrows Move Window to Monitor
+
+LAUNCHERS & MODES
+  Alt + Enter                 Launch Terminal
+  Alt + B                     Launch Browser
+  Alt + R                     Resize Mode (H/J/K/L, Esc to exit)
+  Alt + - / =                 Quick Shrink / Grow Window
+  Alt + Shift + R             Reload Config
+  Alt + Shift + ;             Service Mode
+  Alt + ?                     Show this Keybindings Reference (Alt + Shift + /)"
+
+if [ -t 1 ] && [ "${1:-}" != "--gui" ]; then
+  # Interactive terminal output
+  echo "$HELP_TEXT"
+else
+  # Native macOS popup dialog
+  osascript -e "display dialog \"$HELP_TEXT\" with title \"AeroSpace Keybindings\" buttons {\"OK\"} default button \"OK\" with icon note"
+fi

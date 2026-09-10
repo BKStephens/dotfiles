@@ -46,6 +46,7 @@
     dock = {
       autohide = true;
       show-recents = false;
+      expose-group-apps = true; # Recommended by AeroSpace for Mission Control performance
     };
     finder = {
       AppleShowAllExtensions = true;
@@ -53,9 +54,15 @@
       ShowPathbar = true;
     };
     NSGlobalDomain = {
+      ApplePressAndHoldEnabled = false;           # Enable fast key repeat for holding hjkl / letter keys
       AppleShowAllExtensions = true;
       InitialKeyRepeat = 14;
       KeyRepeat = 1;
+      NSAutomaticWindowAnimationsEnabled = false; # Disable window animations for instant workspace switching
+      NSWindowResizeTime = 0.001;                 # Minimize window resize/redraw time
+    };
+    universalaccess = {
+      reduceMotion = true;                        # Reduce system-wide UI transition animations
     };
   };
 

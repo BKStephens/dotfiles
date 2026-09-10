@@ -13,6 +13,7 @@
   # Omarchy manages all system defaults in ~/.config natively; we only link user overrides here
   xdg.configFile = {
     "hypr/input.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/config/hypr/input.lua";
+    "hypr/bindings.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/repos/dotfiles/config/hypr/bindings.conf";
   };
 
   # Nix configuration for standalone Home Manager
