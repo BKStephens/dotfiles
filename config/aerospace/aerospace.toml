@@ -127,14 +127,14 @@ alt-shift-e = 'mode service'
 # RESIZE MODE
 # ==============================================================================
 [mode.resize.binding]
-h = 'resize smart -100'
+h = 'resize smart +100'
 j = 'resize smart -100'
 k = 'resize smart +100'
-l = 'resize smart +100'
-left = 'resize smart -100'
+l = 'resize smart -100'
+left = 'resize smart +100'
 down = 'resize smart -100'
 up = 'resize smart +100'
-right = 'resize smart +100'
+right = 'resize smart -100'
 minus = 'resize smart -100'
 equal = 'resize smart +100'
 enter = 'mode main'

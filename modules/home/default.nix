@@ -22,6 +22,7 @@
     silver-searcher-ng
     starship
     tree
+    yarn
     zoxide
   ];
 
