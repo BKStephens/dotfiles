@@ -92,6 +92,7 @@ dotfiles/
 * **Zsh**: Edit [`modules/home/zsh.nix`](file:///Users/ben.stephens/repos/dotfiles/modules/home/zsh.nix) or add functions in [`zsh/`](file:///Users/ben.stephens/repos/dotfiles/zsh).
 * **Tmux**: Edit [`modules/home/tmux.nix`](file:///Users/ben.stephens/repos/dotfiles/modules/home/tmux.nix).
 * **Neovim**: Edit files directly in [`config/nvim/`](file:///Users/ben.stephens/repos/dotfiles/config/nvim) (changes are picked up immediately).
+* **Ghostty**: Edit [`config/ghostty/config`](file:///Users/ben.stephens/repos/dotfiles/config/ghostty/config) (changes are picked up immediately).
 
 ### Applying Changes
 

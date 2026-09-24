@@ -61,9 +61,6 @@
       NSAutomaticWindowAnimationsEnabled = false; # Disable window animations for instant workspace switching
       NSWindowResizeTime = 0.001;                 # Minimize window resize/redraw time
     };
-    universalaccess = {
-      reduceMotion = true;                        # Reduce system-wide UI transition animations
-    };
   };
 
   # Used for backwards compatibility, please read the changelog before changing.
