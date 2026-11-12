@@ -85,7 +85,7 @@ return {
 
           map("n", "gd", vim.lsp.buf.definition, "Go to definition")
           map("n", "gt", vim.lsp.buf.type_definition, "Go to type definition")
-          map("n", "gI", vim.lsp.buf.implementation, "Find implementations")
+          map("n", "gI", "<cmd>FzfLua lsp_implementations<CR>", "Find implementations")
           map("n", "gr", "<cmd>FzfLua lsp_references<CR>", "Find references")
           map("n", "K", vim.lsp.buf.hover, "Hover documentation")
           map("n", "<Leader>ca", vim.lsp.buf.code_action, "Code action")

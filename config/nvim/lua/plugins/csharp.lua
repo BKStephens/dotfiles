@@ -48,7 +48,24 @@ return {
         end
       end
 
+      local dotnet_bin = vim.fn.exepath("dotnet") ~= "" and vim.fn.exepath("dotnet") or "/usr/local/share/dotnet/dotnet"
+      local dotnet_root = vim.fs.dirname(dotnet_bin)
+      local roslyn_dll = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "packages", "roslyn", "libexec", "Microsoft.CodeAnalysis.LanguageServer.dll")
       vim.lsp.config("roslyn", {
+        cmd = {
+          dotnet_bin,
+          roslyn_dll,
+          "--stdio",
+          "--clientProcessId",
+          tostring(vim.uv.os_getpid()),
+          "--extensionLogDirectory",
+          vim.fs.joinpath(vim.fn.stdpath("log"), "roslyn"),
+        },
+        cmd_env = {
+          DOTNET_ROOT = dotnet_root,
+          Configuration = vim.env.Configuration or "Debug",
+          TMPDIR = vim.env.TMPDIR and vim.fn.resolve(vim.env.TMPDIR) or nil,
+        },
         capabilities = capabilities,
         settings = {
           ["csharp|inlay_hints"] = {
