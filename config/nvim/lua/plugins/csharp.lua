@@ -12,6 +12,72 @@ return {
     config = function(_, opts)
       require("roslyn").setup(opts)
 
+      -- Support Microsoft.Build.Traversal (dirs.proj) projects when no .sln/.slnx exists
+      local function parse_dirs_proj(dirs_proj_path, seen, results)
+        seen = seen or {}
+        results = results or {}
+        local normalized = vim.fs.normalize(dirs_proj_path)
+        if seen[normalized] or not vim.uv.fs_stat(normalized) then
+          return results
+        end
+        seen[normalized] = true
+
+        local base_dir = vim.fs.dirname(normalized)
+        local file = io.open(normalized, "r")
+        if not file then return results end
+        local content = file:read("*a")
+        file:close()
+
+        for include in content:gmatch('[Ii]nclude%s*=%s*["\']([^"\']+)["\']') do
+          local rel_path = include:gsub("\\", "/")
+          local full_path = vim.fs.normalize(base_dir .. "/" .. rel_path)
+          if full_path:match("%.csproj$") then
+            if vim.uv.fs_stat(full_path) and not vim.list_contains(results, full_path) then
+              table.insert(results, full_path)
+            end
+          elseif full_path:match("%.proj$") then
+            parse_dirs_proj(full_path, seen, results)
+          end
+        end
+
+        return results
+      end
+
+      local function find_top_dirs_proj(path)
+        local matches = vim.fs.find("dirs.proj", { upward = true, path = path, limit = math.huge })
+        if #matches > 0 then
+          return matches[#matches]
+        end
+        return nil
+      end
+
+      local target_mod = require("roslyn.target")
+      local orig_resolve = target_mod.resolve
+
+      target_mod.resolve = function(bufnr)
+        local decision = orig_resolve(bufnr)
+        if decision.kind == "solution" or decision.kind == "reuse" then
+          return decision
+        end
+
+        local buf_name = vim.api.nvim_buf_get_name(bufnr)
+        if buf_name and buf_name ~= "" then
+          local top_dirs = find_top_dirs_proj(buf_name)
+          if top_dirs then
+            local projects = parse_dirs_proj(top_dirs)
+            if #projects > 0 then
+              return {
+                kind = "project",
+                root_dir = vim.fs.dirname(top_dirs),
+                projects = projects,
+              }
+            end
+          end
+        end
+
+        return decision
+      end
+
       -- roslyn.nvim registers razor forwarding handlers on textDocument/* methods which break
       -- Neovim's native lsp.buf handlers (gI, gd, gt, etc.) for non-razor C# buffers.
       -- Clearing them restores Neovim's standard LSP request routing.
